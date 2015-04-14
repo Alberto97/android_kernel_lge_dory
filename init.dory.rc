@@ -6,6 +6,7 @@ on init
     write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor "performance"
     write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor "performance"
     write /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor "performance"
+    write /sys/block/mmcblk0/queue/scheduler "noop"
 
     # See storage config details at http://source.android.com/tech/storage/
     mkdir /mnt/shell/emulated 0700 shell shell
@@ -122,6 +123,7 @@ on property:sys.cw_home_ready=1
     # Tell dalvik to only use one thread
     setprop dalvik.vm.dex2oat-threads 1
     setprop dalvik.vm.image-dex2oat-threads 1
+    write /sys/block/mmcblk0/queue/scheduler "row"
 
 # dhcp daemon for bt tethering
 service dhcpcd_bt-pan /system/bin/dhcpcd -BKLG
